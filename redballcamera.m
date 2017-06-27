@@ -1,7 +1,9 @@
 camR = webcam(1);
 camL = webcam(2);
 
-camR=
+camR.Resolution = '352x288';
+camL.Resolution = '352x288';
+
 %defines the image as a ball
 Lball = snapshot(camL);
 Rball = snapshot(camR);
