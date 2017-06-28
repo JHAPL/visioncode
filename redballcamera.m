@@ -12,14 +12,15 @@ Rball = snapshot(camR);
 Lred = Lball(:,:,1); Lgreen = Lball(:,:,2); Lblue = Lball(:,:,3); 
 Rred = Rball(:,:,1); Rgreen = Rball(:,:,2); Rblue = Rball(:,:,3);
 
-%%
+
 %ball2 = impixel(ball); finds rgb values in the ballon
-%%
+
 
 % narrows the picture to that spisific color of red 
 Lout = Lred>160 & Lgreen>10 & Lgreen<70 & Lblue>15 & Lblue<90; 
 Rout = Rred>160 & Rgreen>10 & Rgreen<70 & Rblue>15 & Rblue<90;
 
+%%
 %fills in all the holes
 out2 = imfill(out,'holes'); 
 
