@@ -20,14 +20,18 @@ Rred = Rball(:,:,1); Rgreen = Rball(:,:,2); Rblue = Rball(:,:,3);
 Lout = Lred>250 & Lgreen>90 & Lgreen<150 & Lblue>40 & Lblue<115; 
 Rout = Rred>250 & Rgreen>90 & Rgreen<150 & Rblue>40 & Rblue<115;
 
-
-%%
 %fills in all the holes
-out2 = imfill(out,'holes'); 
+outL = imfill(outL,'holes'); 
+outR = imfill(outR,'holes');
 
 %makes ballon look like a ballon
-out3 = bwmorph(out,'dilate',2);  
+outL = bwmorph(outL,'dilate',2);
+outR = bwmorph(outR,'dilate',2);
 
+%fills in all the holes
+outL = imfill(outL,'holes'); 
+outR = imfill(outR,'holes');
+%%
 %finds the centroid
 %center = regionprops(out3,'centroid')  
 
