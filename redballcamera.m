@@ -17,14 +17,14 @@ Rred = Rball(:,:,1); Rgreen = Rball(:,:,2); Rblue = Rball(:,:,3);
 %%
 
 % narrows the picture to that spisific color of red 
-Lout = Lred>185 & Lgreen>20 & Lgreen<180 & Lblue>55 & Lblue<190; 
-Rout = Rred>185 & Rgreen>20 & Rgreen<180 & Rblue>55 & Rblue<190;
+Lout = Lred>160 & Lgreen>10 & Lgreen<70 & Lblue>15 & Lblue<90; 
+Rout = Rred>160 & Rgreen>10 & Rgreen<70 & Rblue>15 & Rblue<90;
 
 %fills in all the holes
 out2 = imfill(out,'holes'); 
 
 %makes ballon look like a ballon
-out3 = bwmorph(out2,'dilate',2);  
+out3 = bwmorph(out,'dilate',2);  
 
 %finds the centroid
 %center = regionprops(out3,'centroid')  
@@ -57,7 +57,7 @@ for k = 1:length(B)
     if metric > threshold
       centroid = stats(k).Centroid;
       plot(centroid(1),centroid(2),'ko');
-      center = regionprops(out3,'centroid')
+      center = regionprops(out,'centroid')
     end
     
     text(Boundary(1,2)-35,Boundary(1,1)+13,metric_string,'color','r','fontSize',14,'fontWeight','bold');
