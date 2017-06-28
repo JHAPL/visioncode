@@ -17,8 +17,9 @@ Rred = Rball(:,:,1); Rgreen = Rball(:,:,2); Rblue = Rball(:,:,3);
 
 
 % narrows the picture to that spisific color of red 
-Lout = Lred>160 & Lgreen>10 & Lgreen<70 & Lblue>15 & Lblue<90; 
-Rout = Rred>160 & Rgreen>10 & Rgreen<70 & Rblue>15 & Rblue<90;
+Lout = Lred>250 & Lgreen>90 & Lgreen<150 & Lblue>40 & Lblue<115; 
+Rout = Rred>250 & Rgreen>90 & Rgreen<150 & Rblue>40 & Rblue<115;
+
 
 %%
 %fills in all the holes
