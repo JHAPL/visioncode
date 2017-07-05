@@ -22,7 +22,6 @@ while(true)
     out = red./(green)>1.9 & red./(blue)>1.9;
     
     
-    
     %fills in all the holes
     out = imfill(out,'holes');
     %makes ballon look like a balloon
@@ -30,19 +29,19 @@ while(true)
     %fills in all the holes
     out = imfill(out,'holes');
     %finds the centroid
-    center = regionprops(out,'centroid');
+    
     
     %solidifies borders of the object
     [B,L] = bwboundaries(out,'noholes');
     
     %outlines matrix
     
-    %imshow(label2rgb(L, @jet, [.5 .5 .5]))
+    imshow(label2rgb(L, @jet, [.5 .5 .5]))
     
     hold on
     for k = 1:length(B)
         boundary = B{k};
-        %plot(boundary(:,2), boundary(:,1), 'w', 'lineWidth',2)
+        plot(boundary(:,2), boundary(:,1), 'w', 'lineWidth',2)
     end
     
     % estimates area and the centroid
@@ -65,12 +64,11 @@ while(true)
         metric_string = sprintf('%2.2f',metric);
         if metric > threshold
             centroid = stats(k).Centroid;
-            %center = regionprops(out,'centroid')
             mapcenter = [176,144];
             final = centroid - mapcenter;
             if(area > largestArea)
                 largestArea = area;
-                center = centroid
+                center = final
             end
             bip = 1;
             toc
@@ -79,7 +77,7 @@ while(true)
         %text(Boundary(1,2)-35,Boundary(1,1)+13,metric_string,'color','r','fontSize',14,'fontWeight','bold');
     end
     center;
-    %plot(center(1),center(2),'ko');
+    plot(center(1),center(2),'ko');
     
     
     if bip == 0
@@ -91,5 +89,3 @@ while(true)
     %     toc
     
 end
-%dont klnow why it is outputing centroid with not value
-%getting error when centering
