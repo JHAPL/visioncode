@@ -6,11 +6,11 @@ clc
 camR = webcam(1);
 % lowering camera resolution
 camR.Resolution = '352x288';
-snapshot(camR);
+
 
 %%
+tic
 while(true)
-    
     %taking a snapshot of the camera
     ball = snapshot(camR);
     % ball = imread('ball.jpeg');
@@ -19,9 +19,10 @@ while(true)
     %ball2 = impixel(ball); finds rgb values in the balloon
     
     %narrows the picture to that spisific color of red
-    out = red>110 & green>8 & green<45 & blue>14 & blue<86; %in control 1 meter away
-    %out = red>250 & green>90 & green<150 & blue>40 & blue<115; %with interference ~11 meter away
-    %out = red>190 & green>25 & green<205 & blue>55 & blue<218; %done with balloon picture
+    out = red./(green)>1.9 & red./(blue)>1.9;
+    
+    
+    
     %fills in all the holes
     out = imfill(out,'holes');
     %makes ballon look like a balloon
@@ -36,12 +37,12 @@ while(true)
     
     %outlines matrix
     
-   imshow(label2rgb(L, @jet, [.5 .5 .5]))
-   
-   hold on
+    %imshow(label2rgb(L, @jet, [.5 .5 .5]))
+    
+    hold on
     for k = 1:length(B)
         boundary = B{k};
-        plot(boundary(:,2), boundary(:,1), 'w', 'lineWidth',2)
+        %plot(boundary(:,2), boundary(:,1), 'w', 'lineWidth',2)
     end
     
     % estimates area and the centroid
@@ -52,6 +53,8 @@ while(true)
     
     bip = 0;
     
+    largestArea = 0;
+    center = zeros(2);
     %loops over the boundaries created
     for k = 1:length(B)
         Boundary = B{k};
@@ -61,25 +64,32 @@ while(true)
         metric = 4*pi*area/perimeter^2;
         metric_string = sprintf('%2.2f',metric);
         if metric > threshold
-          centroid = stats(k).Centroid;
-          plot(centroid(1),centroid(2),'ko');
-          center = regionprops(out,'centroid')
-          mapcenter = [176,144];
-          %final = center.Centroid - mapcenter
-          bip = 1;
-          
-          break 
+            centroid = stats(k).Centroid;
+            %center = regionprops(out,'centroid')
+            mapcenter = [176,144];
+            final = centroid - mapcenter;
+            if(area > largestArea)
+                largestArea = area;
+                center = centroid
+            end
+            bip = 1;
+            toc
         end
         
         %text(Boundary(1,2)-35,Boundary(1,1)+13,metric_string,'color','r','fontSize',14,'fontWeight','bold');
     end
+    center;
+    %plot(center(1),center(2),'ko');
+    
+    
     if bip == 0
-      
+        
     end
     
-     %disp(bip)
-%     toc
+    
+    %disp(bip)
+    %     toc
     
 end
-%dont klnow why it is outputing centroid with not value 
-%getting error when centering 
+%dont klnow why it is outputing centroid with not value
+%getting error when centering
