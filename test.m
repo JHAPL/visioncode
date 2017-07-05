@@ -9,7 +9,11 @@ camR.Resolution = '352x288';
 
 
 %%
-tic
+
+xPoints = zeros(1);
+yPoints = zeros(1);
+i = 1;
+
 while(true)
     %taking a snapshot of the camera
     ball = snapshot(camR);
@@ -35,13 +39,13 @@ while(true)
     [B,L] = bwboundaries(out,'noholes');
     
     %outlines matrix
-    
-    imshow(label2rgb(L, @jet, [.5 .5 .5]))
+    cla
+    %imshow(label2rgb(L, @jet, [.5 .5 .5]))
     
     hold on
     for k = 1:length(B)
         boundary = B{k};
-        plot(boundary(:,2), boundary(:,1), 'w', 'lineWidth',2)
+       % plot(boundary(:,2), boundary(:,1), 'w', 'lineWidth',2)
     end
     
     % estimates area and the centroid
@@ -50,8 +54,7 @@ while(true)
     %tests ecentricity
     threshold = .65;  %go back to
     
-    bip = 0;
-    
+    foundOne = false;
     largestArea = 0;
     center = zeros(2);
     %loops over the boundaries created
@@ -63,26 +66,31 @@ while(true)
         metric = 4*pi*area/perimeter^2;
         metric_string = sprintf('%2.2f',metric);
         if metric > threshold
+            foundOne = true;
             centroid = stats(k).Centroid;
-            mapcenter = [176,432];
-            final = centroid - mapcenter;
+            mapcenter = [-176,-144];
+            %plot(centroid(1),centroid(2),'ko');
             if(area > largestArea)
                 largestArea = area;
-                center = final
-            end
-            bip = 1;
-            toc
+                center = centroid + mapcenter;
+                center(2) = -1 * center(2);
+            end            
         end
         
         %text(Boundary(1,2)-35,Boundary(1,1)+13,metric_string,'color','r','fontSize',14,'fontWeight','bold');
     end
-    center;
-    plot(center(1),center(2),'ko');
-    
-    
-    if bip == 0
-        
+    %foundOne
+    if(foundOne)
+        center
+        xPoints(i) = center(1);
+        yPoints(i) = center(2);
+        i = i + 1;
     end
+    
+    %scatter(center(1),center(2),10,'r');
+    plot(xPoints, yPoints, 'lineWidth', 4);
+
+        
     
     
     %disp(bip)
