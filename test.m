@@ -64,7 +64,7 @@ while(true)
         metric_string = sprintf('%2.2f',metric);
         if metric > threshold
             centroid = stats(k).Centroid;
-            mapcenter = [176,144];
+            mapcenter = [176,432];
             final = centroid - mapcenter;
             if(area > largestArea)
                 largestArea = area;
