@@ -16,13 +16,13 @@ i = 1;
 
 while(true)
     %taking a snapshot of the camera
-    ball = snapshot(camR);
+    ball = snapshot(camR); %outside
     % ball = imread('ball.jpeg');
     %seperatings the colors from the original picture
     red = ball(:,:,1); green = ball(:,:,2); blue = ball(:,:,3);
     %ball2 = impixel(ball); finds rgb values in the balloon
     
-    %narrows the picture to that spisific color of red
+    %narrows the picture to that spesific color of red
     out = red./(green)>1.9 & red./(blue)>1.9;
     
     
@@ -39,7 +39,6 @@ while(true)
     [B,L] = bwboundaries(out,'noholes');
     
     %outlines matrix
-    cla
     %imshow(label2rgb(L, @jet, [.5 .5 .5]))
     
     hold on
@@ -80,7 +79,7 @@ while(true)
         %text(Boundary(1,2)-35,Boundary(1,1)+13,metric_string,'color','r','fontSize',14,'fontWeight','bold');
     end
     %foundOne
-    if(foundOne)
+     if(foundOne)
         center
         xPoints(i) = center(1);
         yPoints(i) = center(2);
@@ -88,7 +87,7 @@ while(true)
     end
     
     %scatter(center(1),center(2),10,'r');
-    plot(xPoints, yPoints, 'lineWidth', 4);
+    %plot(xPoints, yPoints, 'lineWidth', 4);
 
         
     
