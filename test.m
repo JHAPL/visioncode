@@ -20,13 +20,11 @@ hold(ax, 'on');
 while(true)
     %taking a snapshot of the camera
     ball = snapshot(camR); %outside
-    % ball = imread('ball.jpeg');
-    %seperatings the colors from the original pictur
     red = double(ball(:,:,1)); green = double(ball(:,:,2)); blue = double(ball(:,:,3));
-    %ball2 = impixel(ball); finds rgb values in the balloon
-    
-    %narrows the picture to that spesific color of red
-    out = red./(green)>2.7 & red./(blue)>2.7 & red>20;
+    rtg = 2.1; 
+    rtb = 2.1;
+    darktresh = 50;
+    out = red./(green)>rtg & red./(blue)>rtb & red>darktresh;
     %fills in all the holes
     out = imfill(out,'holes');
     %makes ballon look like a balloon
