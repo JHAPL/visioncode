@@ -3,7 +3,7 @@ clear
 clc
 %%
 % assigining the camera a value
-camR = webcam(2);
+camR = webcam(1);
 % lowering camera resolution
 camR.Resolution = '352x288';
 
@@ -13,17 +13,15 @@ camR.Resolution = '352x288';
 xPoints = zeros(1);
 yPoints = zeros(1);
 i = 1;
-h = figure;
-ax = gca;
-hold(ax, 'on');
+
 
 while(true)
     %taking a snapshot of the camera
     ball = snapshot(camR); %outside
     red = double(ball(:,:,1)); green = double(ball(:,:,2)); blue = double(ball(:,:,3));
-    rtg = 2.1; 
-    rtb = 2.1;
-    darktresh = 50;
+    rtg = 1.9; 
+    rtb = 1.90;
+    darktresh = 20;
     out = red./(green)>rtg & red./(blue)>rtb & red>darktresh;
     %fills in all the holes
     out = imfill(out,'holes');
