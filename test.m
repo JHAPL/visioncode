@@ -21,7 +21,7 @@ while(true)
     red = double(ball(:,:,1)); green = double(ball(:,:,2)); blue = double(ball(:,:,3));
     rtg = 1.9; 
     rtb = 1.90;
-    darktresh = 20;
+    darktresh = 40;
     out = red./(green)>rtg & red./(blue)>rtb & red>darktresh;
     %fills in all the holes
     out = imfill(out,'holes');
@@ -73,7 +73,7 @@ while(true)
             end            
         end
         
-        %text(Boundary(1,2)-35,Boundary(1,1)+13,metric_string,'color','r','fontSize',14,'fontWeight','bold');
+        text(Boundary(1,2)-35,Boundary(1,1)+13,metric_string,'color','r','fontSize',14,'fontWeight','bold');
     end
     %foundOne
      if(foundOne)

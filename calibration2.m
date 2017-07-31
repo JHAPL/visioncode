@@ -1,4 +1,4 @@
-%%
+1%%
 clear
 clc
 %%
@@ -11,7 +11,7 @@ preview(camera)
 %c = input('height of the center of the ball ');
 a = 2.47;
 b = .5;
-c = .07;
+c = .03;
 angle1 = atan(a/b);
 angle2 = atan(c/(sqrt(a^2 + b^2)));
 while(true)
@@ -21,7 +21,7 @@ while(true)
         x = centerPoint(2);
         y = centerPoint(3);
         dpp = (.1276 * pi)/180;
-        if(q == 2)
+        if(q == 1)
             x = -1 * x;
         end
         tx = x * dpp;
