@@ -6,12 +6,12 @@ q = input('what camera (1 or 2) ');
 camera = webcam(q);
 camera.Resolution = '352x288';
 preview(camera)
-%a = input('face plane to ball ');
-%b = input('perpendicular plane to ball ');
-%c = input('height of the center of the ball ');
-a = 2.47;
+% a = input('face plane to ball ');
+% b = input('perpendicular plane to ball ');
+% c = input('height of the center of the ball ');
+a = 2.5;
 b = .5;
-c = .03;
+ c = .19;
 angle1 = atan(a/b);
 angle2 = atan(c/(sqrt(a^2 + b^2)));
 while(true)
@@ -21,7 +21,7 @@ while(true)
         x = centerPoint(2);
         y = centerPoint(3);
         dpp = (.1276 * pi)/180;
-        if(q == 1)
+        if(q == 2)
             x = -1 * x;
         end
         tx = x * dpp;
@@ -60,10 +60,10 @@ function centerPoint = calc(ball)
         metric = 4*pi*area/perimeter^2;
         metric_string = sprintf('%2.2f',metric);
         if metric > threshold
+            foundOne = true;
             centroid = stats(k).Centroid;
             mapcenter = [-176,-144];
             if(area > largestArea)
-                foundOne = true;
                 largestArea = area;
                 center = centroid + mapcenter;
                 center(2) = -1 * center(2);
